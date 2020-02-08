@@ -52,9 +52,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
     }
 
     override fun unBinding() {
-//        mBinding.unbind()
-//        mBinding = null
-//        mViewModel = null
+        mBinding.unbind()
     }
 
     private var progressBar: ProgressDialog? = null
