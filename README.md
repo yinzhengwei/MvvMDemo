@@ -1,5 +1,5 @@
 # MvvMDemo
-主要包含技术有：MVVM + DataBinding + coroutines + TabLayout，封装了一套常用的首页导航栏加底部Tab模式的功能，
+主要包含技术有：MVVM + DataBinding + coroutines + TabLayout，封装了一套常用的首页导航栏加底部Tab模式的功能。
 
 
 MVP的架构模式在工作中已使用了好几年，也不断在优化和完善。工作之余，终于抽空有时间整理了一套关于MVVM的Demo，该项目主要体现的是MVVM结合
