@@ -11,7 +11,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
  *  Created by yinzhengwei on 2020-02-07.
  *  @Function
  */
-class ItemHomeAdapter(var mTitle: String) :
+class ItemHomeAdapter :
     BaseQuickAdapter<ItemTextBean, BaseViewHolder>(R.layout.adapter_item_layout) {
 
     /**
@@ -31,7 +31,7 @@ class ItemHomeAdapter(var mTitle: String) :
         val binding = helper.getBinding<AdapterItemLayoutBinding>()
         if (binding != null) {
             // 设置数据
-            binding.item = item.apply { title = mTitle }
+            binding.item = item
 
             binding.executePendingBindings()
         }

@@ -36,7 +36,7 @@ class ItemFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
         job = launch {
             val list = mutableListOf<ItemTextBean>()
             for (i in 0..10) {
-                list.add(ItemTextBean("", "第${(i + 1)}个条目"))
+                list.add(ItemTextBean("第${(i + 1)}个条目"))
             }
 
             launchUi {

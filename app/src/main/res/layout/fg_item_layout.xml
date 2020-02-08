@@ -8,10 +8,6 @@
         <variable
             name="model"
             type="cn.com.mvvmdemo.viewmodel.fragment.ItemFragmentViewModel" />
-
-        <variable
-            name="itemAdapter"
-            type="cn.com.mvvmdemo.fragment.item.ItemHomeAdapter" />
     </data>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -23,10 +19,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/tv_fragment_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@{model.fetMsg()}"
+                tools:text="标题" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@+id/tv_fragment_title"
                 android:orientation="vertical"
                 bind:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 bind:spanCount="1"

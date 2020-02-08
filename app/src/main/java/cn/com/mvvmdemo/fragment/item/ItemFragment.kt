@@ -15,7 +15,7 @@ import cn.com.mvvmdemo.viewmodel.fragment.ItemFragmentViewModel
  */
 class ItemFragment : BaseFragment<FgItemLayoutBinding, ItemFragmentViewModel>() {
 
-    private val mAdapter = ItemHomeAdapter("")
+    private val mAdapter = ItemHomeAdapter()
     private var current = 0
 
     override fun getLayoutId() = R.layout.fg_item_layout
@@ -24,7 +24,9 @@ class ItemFragment : BaseFragment<FgItemLayoutBinding, ItemFragmentViewModel>() 
 
     override fun initView() {
         mViewModel.setContent(arguments?.getString("title") ?: "")
-        mAdapter.mTitle = mViewModel.fetMsg()
+
+        //更新xml中引用viewModel的控件内容
+        mBinding.model = mViewModel
 
         mBinding.swipe?.setOnRefreshListener {
             current++
@@ -32,9 +34,9 @@ class ItemFragment : BaseFragment<FgItemLayoutBinding, ItemFragmentViewModel>() 
             //调用逻辑处理实体中的数据加载
             mViewModel.loadData(null)
         }
-        mViewModel.loadData(null)
-
         mBinding.recycler.adapter = mAdapter
+
+        mViewModel.loadData(null)
     }
 
     override fun requestFinish(result: Any?) {
