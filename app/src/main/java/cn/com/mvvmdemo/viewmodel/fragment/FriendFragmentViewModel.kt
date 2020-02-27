@@ -1,5 +1,6 @@
 package cn.com.mvvmdemo.viewmodel.fragment
 
+import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.IBaseView
 import cn.com.base.mvvm.viewmodel.BaseViewModel
 
@@ -10,11 +11,11 @@ import cn.com.base.mvvm.viewmodel.BaseViewModel
 class FriendFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
 
     //todo 这里要使用ohkttp请求网络数据
-    override fun loadData(params: Any?) {
+    override fun <T> loadData(params: T?) {
     }
 
     //通知activity或fragment刷新
-    override fun loadFinish(result: Any?) {
+    override fun loadFinish(result: MutableLiveData<*>?) {
         mView.requestFinish(null)
     }
 
@@ -22,6 +23,7 @@ class FriendFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
     override fun loadError(msg: String) {
         mView.requestError(msg)
     }
+
     override fun cancelJob() {
 
     }

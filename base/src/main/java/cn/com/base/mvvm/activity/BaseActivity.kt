@@ -1,6 +1,7 @@
 package cn.com.base.mvvm.activity
 
 import android.app.ProgressDialog
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +35,9 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //竖屏
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
         mViewModel = createViewModel()

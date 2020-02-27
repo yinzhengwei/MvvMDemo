@@ -21,11 +21,23 @@ fun launchUi(
     block: suspend CoroutineScope.() -> Unit
 ) = GlobalScope.launch(Dispatchers.Main, start, block)
 
-fun launch(callback: (launch: Job) -> Unit): Job {
+fun launch(callback: (CoroutineScope) -> Unit): Job {
     val job = GlobalScope.launch {
+        callback(this)
     }
-    callback(job)
     return job
+}
+
+fun launchAsyn(callback: (CoroutineScope) -> Unit):Deferred<*>{
+
+   return GlobalScope.async {
+       callback(this@async)
+    }
+//    runBlocking {
+//        val result = await.await()
+////        callback(result)
+//    }
+//    return await
 }
 
 

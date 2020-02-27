@@ -5,6 +5,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.BaseActivity
 import cn.com.mvvmdemo.databinding.ActivityMainBinding
 import cn.com.mvvmdemo.fragment.FriendFragment
@@ -61,7 +62,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
         showBadgeView(2, 5)
     }
 
-    override fun requestFinish(result: Any?) {
+    override fun requestFinish(result: MutableLiveData<*>?) {
     }
 
     override fun requestError(msg: String) {

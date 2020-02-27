@@ -1,6 +1,6 @@
 package cn.com.mvvmdemo.viewmodel.fragment
 
-import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.IBaseView
 import cn.com.base.mvvm.viewmodel.BaseViewModel
 
@@ -17,11 +17,11 @@ class MineFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
     //==========================以下方法是专门为xml里和activity提供的==========================
 
     //todo 这里要使用ohkttp请求网络数据
-    override fun loadData(params: Any?) {
+    override fun <T> loadData(params: T?) {
     }
 
     //通知activity或fragment刷新
-    override fun loadFinish(result: Any?) {
+    override fun loadFinish(result: MutableLiveData<*>?) {
         mView.requestFinish(null)
     }
 
@@ -29,6 +29,7 @@ class MineFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
     override fun loadError(msg: String) {
         mView.requestError(msg)
     }
+
     override fun cancelJob() {
 
     }

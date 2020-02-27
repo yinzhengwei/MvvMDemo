@@ -1,5 +1,6 @@
 package cn.com.mvvmdemo.fragment
 
+import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.BaseFragment
 import cn.com.mvvmdemo.R
 import cn.com.mvvmdemo.databinding.FgMineLayoutBinding
@@ -21,7 +22,11 @@ class MineFragment : BaseFragment<FgMineLayoutBinding, MineFragmentViewModel>() 
 
     }
 
-    override fun requestFinish(result: Any?) {
+    override fun loadData() {
+
+    }
+
+    override fun requestFinish(result: MutableLiveData<*>?) {
     }
 
     override fun requestError(msg: String) {

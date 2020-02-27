@@ -1,5 +1,6 @@
 package cn.com.mvvmdemo.fragment.item
 
+import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.BaseFragment
 import cn.com.mvvmdemo.R
 import cn.com.mvvmdemo.databinding.FgItemLayoutBinding
@@ -36,14 +37,21 @@ class ItemFragment : BaseFragment<FgItemLayoutBinding, ItemFragmentViewModel>() 
         }
         mBinding.recycler.adapter = mAdapter
 
+    }
+
+    override fun loadData() {
         mViewModel.loadData(null)
     }
 
-    override fun requestFinish(result: Any?) {
-        mAdapter.setNewData(result as MutableList<ItemTextBean>)
+    override fun requestFinish(result: MutableLiveData<*>?) {
 
-        //结束刷新
-        mBinding.swipe?.isRefreshing = false
+        fetData<MutableList<ItemTextBean>>(result){
+            mAdapter.setNewData(it)
+
+            //结束刷新
+            mBinding.swipe?.isRefreshing = false
+        }
+
     }
 
     override fun requestError(msg: String) {

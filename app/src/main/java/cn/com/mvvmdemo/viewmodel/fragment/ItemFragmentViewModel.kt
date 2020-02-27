@@ -1,5 +1,6 @@
 package cn.com.mvvmdemo.viewmodel.fragment
 
+import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.IBaseView
 import cn.com.base.mvvm.viewmodel.BaseViewModel
 import cn.com.mvvmdemo.fragment.item.ItemTextBean
@@ -28,7 +29,7 @@ class ItemFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
     }
 
     //todo 这里要使用ohkttp请求网络数据
-    override fun loadData(params: Any?) {
+    override fun <T> loadData(params: T?) {
 
         mView.showLading()
 
@@ -40,13 +41,15 @@ class ItemFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
             }
 
             launchUi {
-                loadFinish(list)
+                val liveData = MutableLiveData<MutableList<ItemTextBean>>()
+                liveData.value = list
+                loadFinish(liveData)
             }
         }
     }
 
     //通知activity或fragment刷新
-    override fun loadFinish(result: Any?) {
+    override fun loadFinish(result: MutableLiveData<*>?) {
         mView.hiddenLading()
         mView.requestFinish(result)
     }

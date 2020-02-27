@@ -1,5 +1,6 @@
 package cn.com.mvvmdemo.fragment
 
+import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.BaseFragment
 import cn.com.mvvmdemo.R
 import cn.com.mvvmdemo.databinding.FgHomeLayoutBinding
@@ -17,21 +18,25 @@ class HomeFragment : BaseFragment<FgHomeLayoutBinding, HomeFragmentViewModel>() 
     override fun getLayoutId() = R.layout.fg_home_layout
 
     override fun initView() {
-
         val tabCount = mBinding.layoutTab?.tabCount ?: 0
         //加载数据
         mViewModel.loadData(tabCount)
     }
 
-    override fun requestFinish(result: Any?) {
-        val list = result as MutableList<String>
+    override fun loadData() {
 
-        activity?.supportFragmentManager?.run {
-            mBinding.viewPager?.adapter = HomeViewPagerFragmentAdapter(this, list)
+    }
+
+    override fun requestFinish(result: MutableLiveData<*>?) {
+        fetData<MutableList<String>>(result) {
+            activity?.supportFragmentManager?.run {
+                mBinding.viewPager?.adapter = HomeViewPagerFragmentAdapter(this, it)
+            }
+
+            mBinding.viewPager?.offscreenPageLimit = it.size
+            mBinding.layoutTab?.setupWithViewPager(mBinding.viewPager)
         }
 
-        mBinding.viewPager?.offscreenPageLimit = list.size
-        mBinding.layoutTab?.setupWithViewPager(mBinding.viewPager)
     }
 
     override fun requestError(msg: String) {
