@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModelProvider
 import cn.com.base.mvvm.activity.BaseActivity
 import cn.com.mvvmdemo.databinding.ActivityMainBinding
 import cn.com.mvvmdemo.fragment.FriendFragment
@@ -25,7 +26,8 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
-    override fun createViewModel() = MainActivityViewModel()
+    override fun createViewModel(viewModel: ViewModelProvider) =
+        viewModel.get(MainActivityViewModel::class.java)
 
     override fun initView() {
         setSupportActionBar(mBinding.toolbar)
@@ -109,4 +111,5 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
                 showNumber
         }
     }
+
 }

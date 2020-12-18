@@ -13,7 +13,7 @@ import kotlinx.coroutines.Job
  *
  *  @param mView activity或fragment对象的引用
  */
-class ItemFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
+class ItemFragmentViewModel : BaseViewModel() {
 
     lateinit var job: Job
     private var content = ""
@@ -30,9 +30,6 @@ class ItemFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
 
     //todo 这里要使用ohkttp请求网络数据
     override fun <T> loadData(params: T?) {
-
-        mView.showLading()
-
         //暂时用Thread模拟
         job = launch {
             val list = mutableListOf<ItemTextBean>()
@@ -41,7 +38,6 @@ class ItemFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
             }
 
             launchUi {
-                mView.hiddenLading()
                 liveData<MutableList<ItemTextBean>>().value = list
             }
         }

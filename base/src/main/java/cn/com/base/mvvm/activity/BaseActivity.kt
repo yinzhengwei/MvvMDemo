@@ -16,13 +16,12 @@ import com.kingja.loadsir.core.LoadService
  *  Created by yinzhengwei on 2020-02-05.
  *  @Function
  */
-abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity(),
-    IBaseView {
+abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompatActivity(), IBaseView {
 
     @LayoutRes
     abstract fun getLayoutId(): Int
 
-    abstract fun createViewModel(): VM
+    abstract fun createViewModel(viewModelProvider: ViewModelProvider): VM
 
     abstract fun initView()
 
@@ -36,8 +35,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
 
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
-        mViewModel = createViewModel()
-//        mViewModel = ViewModelProvider(this).get(createViewModel()::class.java)
+        mViewModel = createViewModel(ViewModelProvider(this))
 
         initView()
     }

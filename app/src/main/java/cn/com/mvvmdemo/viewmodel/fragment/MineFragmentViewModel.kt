@@ -7,7 +7,7 @@ import cn.com.base.mvvm.viewmodel.BaseViewModel
  *  Created by yinzhengwei on 2020-02-07.
  *  @Function
  */
-class MineFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
+class MineFragmentViewModel: BaseViewModel() {
 
     //接收activity传来的参数
     fun setContent(title: String) {

@@ -1,9 +1,11 @@
 package cn.com.mvvmdemo.fragment
 
+import androidx.lifecycle.ViewModelProvider
 import cn.com.base.mvvm.activity.BaseFragment
 import cn.com.mvvmdemo.R
 import cn.com.mvvmdemo.databinding.FgHomeLayoutBinding
 import cn.com.mvvmdemo.fragment.item.HomeViewPagerFragmentAdapter
+import cn.com.mvvmdemo.viewmodel.fragment.FriendFragmentViewModel
 import cn.com.mvvmdemo.viewmodel.fragment.HomeFragmentViewModel
 
 /**
@@ -12,7 +14,8 @@ import cn.com.mvvmdemo.viewmodel.fragment.HomeFragmentViewModel
  */
 class HomeFragment : BaseFragment<FgHomeLayoutBinding, HomeFragmentViewModel>() {
 
-    override fun createViewModel() = HomeFragmentViewModel(this)
+    override fun createViewModel(provider: ViewModelProvider) =
+        ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
 
     override fun getLayoutId() = R.layout.fg_home_layout
 

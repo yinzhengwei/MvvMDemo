@@ -1,9 +1,11 @@
 package cn.com.mvvmdemo.fragment.item
 
+import androidx.lifecycle.ViewModelProvider
 import cn.com.base.mvvm.activity.BaseFragment
 import cn.com.mvvmdemo.R
 import cn.com.mvvmdemo.databinding.FgItemLayoutBinding
 import cn.com.mvvmdemo.viewmodel.fragment.ItemFragmentViewModel
+import cn.com.mvvmdemo.viewmodel.fragment.MineFragmentViewModel
 
 /**
  *  Created by yinzhengwei on 2020-02-05.
@@ -20,7 +22,8 @@ class ItemFragment : BaseFragment<FgItemLayoutBinding, ItemFragmentViewModel>() 
 
     override fun getLayoutId() = R.layout.fg_item_layout
 
-    override fun createViewModel() = ItemFragmentViewModel(this)
+    override fun createViewModel(provider: ViewModelProvider) =
+        provider.get(ItemFragmentViewModel::class.java)
 
     override fun initView() {
         mViewModel.setContent(arguments?.getString("title") ?: "")

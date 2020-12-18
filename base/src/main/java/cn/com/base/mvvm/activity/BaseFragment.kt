@@ -23,7 +23,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
     @LayoutRes
     abstract fun getLayoutId(): Int
 
-    abstract fun createViewModel(): VM
+    abstract fun createViewModel(viewModelProvider: ViewModelProvider): VM
 
     abstract fun initView()
 
@@ -47,12 +47,8 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
 
         mBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
 
-        mViewModel = createViewModel()
-
-//        mViewModel = ViewModelProvider(this).get(createViewModel()::class.java)
-//        mViewModel = defaultViewModelProviderFactory.create(createViewModel())
-
         mBinding.executePendingBindings()
+        mViewModel = createViewModel(ViewModelProvider(this))
 
         isViewCreated = true
 
@@ -78,6 +74,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         initView()
         if (userVisibleHint && !isLoadCompleted) {
             // 此处不需要判断isViewCreated，因为这个方法在onCreateView方法之后执行

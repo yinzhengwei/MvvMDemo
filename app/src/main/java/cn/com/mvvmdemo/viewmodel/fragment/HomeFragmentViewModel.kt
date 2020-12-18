@@ -10,7 +10,7 @@ import kotlinx.coroutines.Job
  *  Created by yinzhengwei on 2020-02-07.
  *  @Function
  */
-class HomeFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
+class HomeFragmentViewModel: BaseViewModel() {
 
     lateinit var job: Job
 
@@ -26,7 +26,7 @@ class HomeFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
 
     //todo 这里要使用ohkttp请求网络数据
     override fun <T> loadData(params: T?) {
-        mView.showLading()
+//        mView.showLading()
         job = launch {
             val list =
                 mutableListOf("拼多多", "抖音", "聚划算", "饿了吗", "淘宝", "京东", "苏宁易购", "锦鲤口袋", "美团")
@@ -34,7 +34,7 @@ class HomeFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
             //却换到主线程
             //通知activity或fragment刷新
             launchUi {
-                mView.hiddenLading()
+//                mView.hiddenLading()
                 liveData<MutableList<String>>().value = list
             }
         }
