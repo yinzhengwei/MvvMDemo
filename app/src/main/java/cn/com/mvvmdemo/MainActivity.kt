@@ -25,7 +25,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
-    override fun createViewModel() = MainActivityViewModel(this)
+    override fun createViewModel() = MainActivityViewModel()
 
     override fun initView() {
         setSupportActionBar(mBinding.toolbar)
@@ -62,11 +62,6 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
         showBadgeView(2, 5)
     }
 
-    override fun requestFinish(result: MutableLiveData<*>?) {
-    }
-
-    override fun requestError(msg: String) {
-    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -103,7 +98,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainActivityViewModel>() 
         val navigationMenuView = mBinding.bottom?.getChildAt(0) as BottomNavigationMenuView
         if (viewIndex < navigationMenuView.childCount) {
             val view = navigationMenuView.getChildAt(viewIndex)
-            val icon = view.findViewById<View>(com.google.android.material.R.id.icon)
+            val icon = view.findViewById<View>(R.id.icon)
             val iconWidth = icon.width
             val tabWidth = view.width / 2
 

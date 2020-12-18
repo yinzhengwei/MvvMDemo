@@ -1,6 +1,5 @@
 package cn.com.mvvmdemo.viewmodel.fragment
 
-import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.IBaseView
 import cn.com.base.mvvm.viewmodel.BaseViewModel
 import cn.com.mvvmdemo.fragment.item.ItemTextBean
@@ -18,6 +17,7 @@ class ItemFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
 
     lateinit var job: Job
     private var content = ""
+
     //接收activity传来的参数
     fun setContent(title: String) {
         this.content = title
@@ -41,22 +41,10 @@ class ItemFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
             }
 
             launchUi {
-                val liveData = MutableLiveData<MutableList<ItemTextBean>>()
-                liveData.value = list
-                loadFinish(liveData)
+                mView.hiddenLading()
+                liveData<MutableList<ItemTextBean>>().value = list
             }
         }
-    }
-
-    //通知activity或fragment刷新
-    override fun loadFinish(result: MutableLiveData<*>?) {
-        mView.hiddenLading()
-        mView.requestFinish(result)
-    }
-
-    //通知activity或fragment刷新
-    override fun loadError(msg: String) {
-        mView.requestError(msg)
     }
 
     //取消任务

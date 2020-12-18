@@ -10,8 +10,8 @@ interface IBaseView {
 
     fun showLading() {}
     fun hiddenLading() {}
-    fun requestFinish(result: MutableLiveData<*>?) {}
-    fun requestError(msg: String) {}
+//    fun requestFinish(result: MutableLiveData<*>?) {}
+//    fun requestError(msg: String) {}
 
     //解绑数据
     fun unBinding()

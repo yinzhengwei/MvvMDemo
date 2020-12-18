@@ -3,18 +3,14 @@ package cn.com.base.mvvm.activity
 import android.app.ProgressDialog
 import android.content.pm.ActivityInfo
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import cn.com.base.mvvm.viewmodel.BaseViewModel
-import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.core.LoadService
-import com.kingja.loadsir.core.LoadSir
 
 /**
  *  Created by yinzhengwei on 2020-02-05.
@@ -41,6 +37,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
         mBinding = DataBindingUtil.setContentView(this, getLayoutId());
 
         mViewModel = createViewModel()
+//        mViewModel = ViewModelProvider(this).get(createViewModel()::class.java)
 
         initView()
     }
@@ -57,6 +54,7 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
 
     private var loadService: LoadService<*>? = null
     private var progressBar: ProgressDialog? = null
+
     //展示loading
     fun showLading(msg: String) {
         progressBar = ProgressDialog.show(this, "", msg)
@@ -66,6 +64,13 @@ abstract class BaseActivity<T : ViewDataBinding, VM : BaseViewModel> : AppCompat
 //            //onRetryBtnClick()
 //        }
     }
+
+    fun <R> observe(callback: (R) -> Unit) {
+        mViewModel?.liveData<R>()?.observe(this, Observer<R> {
+            callback(it)
+        })
+    }
+
 
     //重载方法！为了提供提示文案的动态可切换
     override fun showLading() {

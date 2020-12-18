@@ -11,6 +11,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import cn.com.base.mvvm.viewmodel.BaseViewModel
 
 /**
@@ -33,6 +34,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
 
     //Fragment的View加载完毕的标记
     private var isViewCreated: Boolean = false
+
     //Fragment对用户可见的标记
     var isUIVisible: Boolean = false
     protected var isLoadCompleted: Boolean = false
@@ -47,8 +49,8 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
 
         mViewModel = createViewModel()
 
-        //mViewModel = ViewModelProviders.of(this).get(createViewModel()::class.java)
-        //mViewModel = defaultViewModelProviderFactory.create(createViewModel())
+//        mViewModel = ViewModelProvider(this).get(createViewModel()::class.java)
+//        mViewModel = defaultViewModelProviderFactory.create(createViewModel())
 
         mBinding.executePendingBindings()
 
@@ -66,6 +68,12 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
         } else {
             isUIVisible = false
         }
+    }
+
+    fun <R> observe(callback: (R) -> Unit) {
+        mViewModel?.liveData<R>()?.observe(this, Observer<R> {
+            callback(it)
+        })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -105,6 +113,7 @@ abstract class BaseFragment<T : ViewDataBinding, VM : BaseViewModel> : Fragment(
     }
 
     private var progressBar: ProgressDialog? = null
+
     //展示loading
     fun showLading(msg: String) {
         progressBar = ProgressDialog.show(activity, "", msg)

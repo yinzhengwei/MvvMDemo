@@ -1,15 +1,10 @@
 package cn.com.mvvmdemo.viewmodel.fragment
 
-import androidx.lifecycle.MutableLiveData
 import cn.com.base.mvvm.activity.IBaseView
 import cn.com.base.mvvm.viewmodel.BaseViewModel
 import cn.com.mvvmdemo.helper.launch
-import cn.com.mvvmdemo.helper.launchAsyn
 import cn.com.mvvmdemo.helper.launchUi
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancelAndJoin
-import kotlinx.coroutines.runBlocking
 
 /**
  *  Created by yinzhengwei on 2020-02-07.
@@ -37,10 +32,10 @@ class HomeFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
                 mutableListOf("拼多多", "抖音", "聚划算", "饿了吗", "淘宝", "京东", "苏宁易购", "锦鲤口袋", "美团")
 
             //却换到主线程
+            //通知activity或fragment刷新
             launchUi {
-                val liveData = MutableLiveData<MutableList<String>>()
-                liveData.value = list
-                loadFinish(liveData)
+                mView.hiddenLading()
+                liveData<MutableList<String>>().value = list
             }
         }
 
@@ -51,17 +46,6 @@ class HomeFragmentViewModel(private var mView: IBaseView) : BaseViewModel() {
 //            job.await()
 //        }
 
-    }
-
-    //通知activity或fragment刷新
-    override fun loadFinish(result: MutableLiveData<*>?) {
-        mView.hiddenLading()
-        mView.requestFinish(result)
-    }
-
-    //通知activity或fragment刷新
-    override fun loadError(msg: String) {
-        mView.requestError(msg)
     }
 
     //取消任务
